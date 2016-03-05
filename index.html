@@ -3,6 +3,7 @@
 <head>
     <link href="style.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 </head>
 <body>
 
@@ -22,8 +23,14 @@
         <h2>Modal Header</h2>
     </div>
     <div class="modal-body">
-        <p>Some text in the Modal Body</p>
-        <p>Some other text...</p>
+      <table>
+        <thead>
+          <tr><th>Item</th></tr>
+        </thead>
+        <tbody data-bind="foreach: newsFeedItems">
+          <tr><td data-bind="text: name"></td></tr>
+        </tbody>
+      </table>
     </div>
     <div class="modal-footer">
         <h3>Modal Footer</h3>
