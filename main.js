@@ -55,8 +55,10 @@ var checkboxClick_handler = function(item) {
     });
     if (!noneChecked) {
         $(".price_th").css("visibility", "visible");
+        $(".quantity_th").css("visibility", "visible");
     } else {
         $(".price_th").css("visibility", "hidden");
+        $(".quantity_th").css("visibility", "hidden");
     }
 }
 
@@ -66,7 +68,7 @@ var totalAmtChange_handler = function() {
     $("input[type=number]").each(function(index) {
         var isChecked = $("#checkbox_" + index).prop('checked');
         var inputtedNumber = Number($(this).val());
-        var price = Number($("#price_" + index).text());
+        var price = Number($("#price_" + index).text().substring(1));
         if (inputtedNumber && price && isChecked) {
             totalSoFar += (inputtedNumber * price);
         }
@@ -76,7 +78,7 @@ var totalAmtChange_handler = function() {
 }
 
 $(document).ready(function() {
-    $.get("http://jsonplaceholder.typicode.com/users", function(data, status) {
+    $.get("http://big-sisters-bc.herokuapp.com/item/array", function(data, status) {
       //todo check status
         for (var i = 0; i < data.length; i++) {
             dataItems.push(data[i]);
@@ -88,5 +90,24 @@ $(document).ready(function() {
                 $(":checkbox", this).trigger('click');
             }
         });
+    });
+
+    $('.carousel').carousel({
+      wrap: false,
+      interval: false
+    }).on('slid.bs.carousel', function () {
+        curSlide = $('.active');
+      if(curSlide.is( ':first-child' )) {
+         $('.left').hide();
+         return;
+      } else {
+         $('.left').show();
+      }
+      if (curSlide.is( ':last-child' )) {
+         $('.right').hide();
+         return;
+      } else {
+         $('.right').show();
+      }
     });
 });

@@ -45,7 +45,9 @@
 }
 
 /* Modal Body */
-.modal-body {padding: 2px 16px;}
+.modal-body {
+    padding: 2px 16px;
+}
 
 /* Modal Footer */
 .modal-footer {
@@ -59,6 +61,7 @@
     position: relative;
     overflow-y: auto;
     max-height: 80%;
+    max-width: 852px;
     background-color: #fefefe;
     margin: auto;
     padding: 0;

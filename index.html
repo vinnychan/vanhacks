@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </head>
 <body>
 
@@ -18,36 +19,53 @@
 
   <!-- Modal content -->
   <div class="modal-content">
-    <div class="modal-header">
-        <!-- TODO: replace with image -->
-        <span id="modalCloseButton" class="close">x</span>
-        <h2>How can I help?</h2>
-        <p>Big Sisters is currently looking for donations for the following items. These donations can come as physical </p>
-    </div>
-    <div class="modal-body">
-      <table class="table table-hover borderless" id="newsFeedItemsTable">
-        <thead>
-          <tr>
-            <th>Item</th>
-            <th>Description</th>
-            <th class="price_th">Cost per unit</th>
-          </tr>
-        </thead>
-        <tbody data-bind="foreach: newsFeedItems">
-          <tr>
-            <td><input class="checkbox" type="checkbox" data-bind="value: $index(), attr: {'id': 'checkbox_' + $index()}, click: checkboxClick_handler($index())"><span data-bind="text:name"></span></td>
-            <td data-bind="text: email"></td>
-            <td><span data-bind="attr: {'id': 'price_'+ $index()}, text: Math.round(address.geo.lat*100)/100"></span></td>
-            <td><input type="number" data-bind="attr: {'id': 'number_'+ $index()}" oninput="totalAmtChange_handler()"></input></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="modal-footer">
-        <h3>Total Donation: $<span id="totalAmount" data-bind="text: totalAmt"></span></h3>
-    </div>
+    <div id="myCarousel" class="carousel slide" data-ride="carousel" data-wrap="false">
+        <div class="carousel-inner" role="listbox">
+            <div class="item active">
+                <img src="https://secure.dazil.com/bigsistersbcca/forms/wp-content/uploads/2012/10/facebook_timeline_cover_bigsister.jpg" alt="How can I help?">
+            </div>
+            <div class="item">
+                <div class="modal-header">
+                    <!-- TODO: replace with image -->
+                    <span id="modalCloseButton" class="close">x</span>
+                    <h2>How can I help?</h2>
+                    <p>Big Sisters is currently looking for donations for the following items. These donations can come as physical </p>
+                </div>
+                <div class="modal-body">
+                  <table class="table table-hover borderless" id="newsFeedItemsTable">
+                    <thead>
+                      <tr>
+                        <th>Item</th>
+                        <th>Description</th>
+                        <th class="price_th">Cost per unit</th>
+                        <th class="quantity_th">Quantity</th>
+                      </tr>
+                    </thead>
+                    <tbody data-bind="foreach: newsFeedItems">
+                      <tr>
+                        <td><input class="checkbox" type="checkbox" data-bind="value: $index(), attr: {'id': 'checkbox_' + $index()}, click: checkboxClick_handler($index())"><span data-bind="text: title"></span></td>
+                        <td style="width: 15em; word-wrap: normal" data-bind="text: description"></td>
+                        <td><span data-bind="attr: {'id': 'price_'+ $index()}, text: '$' + Math.round(price*100)/100"></span></td>
+                        <td><input type="number" style="width: 4em; text-align: center" data-bind="attr: {'id': 'number_'+ $index()}" oninput="totalAmtChange_handler()" value=1></input></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="modal-footer">
+                    <h3>
+                        Total Donation: $<span id="totalAmount" data-bind="text: totalAmt"></span>
+                        <button class="btn-primary">PayPal</button>
+                        <button class="btn-success">Visa</button>
+                    </h3>
+                </div>
+            </div>
+        </div>
+      </div>
   </div>
-
+  <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+  </a>
 </div>
 
 <script src="main.js"></script>
