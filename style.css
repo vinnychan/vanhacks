@@ -37,10 +37,10 @@
     cursor: pointer;
 }
 
-/* Modal Header */
+/* Modal  */
 .modal-header {
     padding: 2px 16px;
-    background-color: #5cb85c;
+    background-color: #683cb8;
     color: white;
 }
 
@@ -50,13 +50,15 @@
 /* Modal Footer */
 .modal-footer {
     padding: 2px 16px;
-    background-color: #5cb85c;
+    background-color: #683cb8;
     color: white;
 }
 
 /* Modal Content */
 .modal-content {
     position: relative;
+    overflow-y: auto;
+    max-height: 80%;
     background-color: #fefefe;
     margin: auto;
     padding: 0;
@@ -67,6 +69,14 @@
     -webkit-animation-duration: 0.4s;
     animation-name: animatetop;
     animation-duration: 0.4s
+}
+
+.model-hide {
+    visibility: hidden;
+}
+
+.borderless td, .borderless th {
+    border: none;
 }
 
 /* Add Animation */

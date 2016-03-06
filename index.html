@@ -2,6 +2,7 @@
 <html>
 <head>
     <link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 </head>
@@ -19,27 +20,31 @@
   <div class="modal-content">
     <div class="modal-header">
         <!-- TODO: replace with image -->
-        <span class="close">x</span>
-        <h2>Modal Header</h2>
+        <span id="modalCloseButton" class="close">x</span>
+        <h2>How can I help?</h2>
+        <p>Big Sisters is currently looking for donations for the following items. These donations can come as physical </p>
     </div>
     <div class="modal-body">
-      <table>
+      <table class="table table-hover borderless" id="newsFeedItemsTable">
         <thead>
           <tr>
             <th>Item</th>
             <th>Description</th>
+            <th class="price_th">Cost per unit</th>
           </tr>
         </thead>
         <tbody data-bind="foreach: newsFeedItems">
           <tr>
-            <td><input type="checkbox"><span data-bind="text:name"></span></td>
+            <td><input class="checkbox" type="checkbox" data-bind="value: $index(), attr: {'id': 'checkbox_' + $index()}, click: checkboxClick_handler($index())"><span data-bind="text:name"></span></td>
             <td data-bind="text: email"></td>
+            <td><span data-bind="attr: {'id': 'price_'+ $index()}, text: Math.round(address.geo.lat*100)/100"></span></td>
+            <td><input type="number" data-bind="attr: {'id': 'number_'+ $index()}" oninput="totalAmtChange_handler()"></input></td>
           </tr>
         </tbody>
       </table>
     </div>
     <div class="modal-footer">
-        <h3>Modal Footer</h3>
+        <h3>Total Donation: $<span id="totalAmount" data-bind="text: totalAmt"></span></h3>
     </div>
   </div>
 

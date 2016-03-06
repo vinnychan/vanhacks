@@ -23,17 +23,59 @@ window.onclick = function(event) {
 
 var dataItems = ko.observableArray();
 
+var totalAmt = ko.observable("0.00");
+
 ko.applyBindings({
-  newsFeedItems: dataItems
+    newsFeedItems: dataItems
 })
 
-// When the user clicks anywhere outside of the modal, close it
+var checkboxClick_handler = function(item) {
+    console.log('clicked: ' + item);
+    var checkbox = $("#checkbox_" + item);
+    var price = $("#price_" + item);
+    var number = $("#number_" + item);
+    if (checkbox.prop('checked')) {
+        price.show();
+        number.show();
+    } else {
+        price.hide();
+        number.hide();
+    }
+
+    var noneChecked = true;
+    $("input[type=checkbox]").each(function(index) {
+        if ($("#checkbox_" + index).prop('checked')) {
+            noneChecked = false;
+        }
+    });
+    if (!noneChecked) {
+        $(".price_th").css("display", "block");
+    } else {
+        $(".price_th").css("display", "none");
+    }
+}
+
+var totalAmtChange_handler = function() {
+    console.log('total amount changed');
+    var totalSoFar = 0;
+    $("input[type=number]").each(function(index) {
+        var inputtedNumber = Number($(this).val());
+        var price = Number($("#price_" + index).text());
+        if (inputtedNumber && price) {
+            totalSoFar += (inputtedNumber * price);
+        }
+    });
+    var rounded = Math.round(totalSoFar*100)/100;
+    totalAmt(rounded.toString());
+}
 
 $(document).ready(function() {
-  $.get("http://jsonplaceholder.typicode.com/users", function(data, status) {
-    //todo check status
-    for (var i = 0; i < data.length; i++) {
-      dataItems.push(data[i]);
-    }
-  });
+    $.get("http://jsonplaceholder.typicode.com/users", function(data, status) {
+      //todo check status
+        for (var i = 0; i < data.length; i++) {
+            dataItems.push(data[i]);
+            $("#price_"+i).hide();
+            $("#number_"+i).hide();
+        }
+    });
 });
