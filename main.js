@@ -42,6 +42,11 @@ var checkboxClick_handler = function(item) {
         number.hide();
     }
 
+    var amt = Number($("#number_" + item).val());
+    if (amt != 0) {
+        totalAmtChange_handler();
+    }
+
     var noneChecked = true;
     $("input[type=checkbox]").each(function(index) {
         if ($("#checkbox_" + index).prop('checked')) {
@@ -59,9 +64,10 @@ var totalAmtChange_handler = function() {
     console.log('total amount changed');
     var totalSoFar = 0;
     $("input[type=number]").each(function(index) {
+        var isChecked = $("#checkbox_" + index).prop('checked');
         var inputtedNumber = Number($(this).val());
         var price = Number($("#price_" + index).text());
-        if (inputtedNumber && price) {
+        if (inputtedNumber && price && isChecked) {
             totalSoFar += (inputtedNumber * price);
         }
     });
