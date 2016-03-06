@@ -35,11 +35,11 @@ var checkboxClick_handler = function(item) {
     var price = $("#price_" + item);
     var number = $("#number_" + item);
     if (checkbox.prop('checked')) {
-        price.show();
-        number.show();
+        price.css("visibility", "visible");
+        number.css("visibility", "visible");
     } else {
-        price.hide();
-        number.hide();
+        price.css("visibility", "hidden");
+        number.css("visibility", "hidden");
     }
 
     var amt = Number($("#number_" + item).val());
@@ -54,9 +54,9 @@ var checkboxClick_handler = function(item) {
         }
     });
     if (!noneChecked) {
-        $(".price_th").css("display", "block");
+        $(".price_th").css("visibility", "visible");
     } else {
-        $(".price_th").css("display", "none");
+        $(".price_th").css("visibility", "hidden");
     }
 }
 
@@ -80,8 +80,13 @@ $(document).ready(function() {
       //todo check status
         for (var i = 0; i < data.length; i++) {
             dataItems.push(data[i]);
-            $("#price_"+i).hide();
-            $("#number_"+i).hide();
+            $("#price_"+i).css("visibility", "hidden");
+            $("#number_"+i).css("visibility", "hidden");
         }
+        $(".table tr").click(function(event) {
+            if (event.target.type !== 'checkbox' && event.target.type !== 'number') {
+                $(":checkbox", this).trigger('click');
+            }
+        });
     });
 });
